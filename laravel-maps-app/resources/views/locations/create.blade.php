@@ -87,14 +87,18 @@
                         </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="address" class="form-label">Endereço</label>
-                        <input type="text" class="form-control @error('address') is-invalid @enderror"
-                               id="address" name="address" value="{{ old('address') }}">
-                        @error('address')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
+                   <div class="mb-3">
+    <label for="address" class="form-label">Endereço</label>
+    <input type="text" class="form-control @error('address') is-invalid @enderror"
+           id="address" name="address" value="{{ old('address') }}">
+    @error('address')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+    <button type="button" class="btn btn-secondary mt-2" id="btnSearchAddress">
+        <i class="fas fa-search me-1"></i>Pesquisar Endereço
+    </button>
+</div>
+
 
                     <div class="mb-3">
                         <label for="category" class="form-label">Categoria</label>
@@ -128,7 +132,77 @@
 @endsection
 
 @section('scripts')
+@section('scripts')
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+    var map = L.map('map').setView([-23.5505, -46.6333], 10);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    var marker = null;
+
+    map.on('click', function(e) {
+        var lat = e.latlng.lat;
+        var lng = e.latlng.lng;
+
+        document.getElementById('latitude').value = lat.toFixed(8);
+        document.getElementById('longitude').value = lng.toFixed(8);
+
+        if (marker) map.removeLayer(marker);
+        marker = L.marker([lat, lng]).addTo(map);
+        marker.bindPopup(`
+            <div class="text-center">
+                <strong>Coordenadas selecionadas:</strong><br>
+                Lat: ${lat.toFixed(8)}<br>
+                Lng: ${lng.toFixed(8)}
+            </div>
+        `).openPopup();
+    });
+
+    document.getElementById('btnSearchAddress').addEventListener('click', function() {
+        var address = document.getElementById('address').value;
+        if (!address) {
+            alert('Digite um endereço para pesquisar.');
+            return;
+        }
+
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.length > 0) {
+                    var lat = parseFloat(data[0].lat);
+                    var lon = parseFloat(data[0].lon);
+
+                    map.setView([lat, lon], 15);
+
+                    document.getElementById('latitude').value = lat.toFixed(8);
+                    document.getElementById('longitude').value = lon.toFixed(8);
+
+                    if (marker) map.removeLayer(marker);
+                    marker = L.marker([lat, lon]).addTo(map);
+                    marker.bindPopup(`
+                        <div class="text-center">
+                            <strong>Endereço encontrado:</strong><br>
+                            ${address}<br>
+                            Lat: ${lat.toFixed(8)}<br>
+                            Lng: ${lon.toFixed(8)}
+                        </div>
+                    `).openPopup();
+                } else {
+                    alert('Endereço não encontrado.');
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao buscar endereço:', error);
+                alert('Erro ao buscar endereço.');
+            });
+    });
+});
+</script>
+@endsection
+
+<!-- <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Inicializar o mapa
     var map = L.map('map').setView([-23.5505, -46.6333], 10); // São Paulo como centro inicial
@@ -166,4 +240,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-@endsection
+@endsection -->
