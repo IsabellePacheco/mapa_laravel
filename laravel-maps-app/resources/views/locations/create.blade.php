@@ -6,10 +6,11 @@
 <div class="row">
     <div class="col-12">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1><i class="fas fa-plus me-2"></i>Adicionar Novo Local</h1>
-            <a href="{{ route('locations.index') }}" class="btn btn-outline-secondary">
+            <h1><i class=""></i>Adicionar Novo Local</h1>
+            <a href="{{ route('locations.index') }}" class="btn btn-danger">
                 <i class="fas fa-arrow-left me-1"></i>Voltar
             </a>
+
         </div>
     </div>
 </div>
@@ -47,18 +48,18 @@
                     <div class="mb-3">
                         <label for="name" class="form-label">Nome do Local *</label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror"
-                               id="name" name="name" value="{{ old('name') }}" required>
+                            id="name" name="name" value="{{ old('name') }}" required>
                         @error('name')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                        <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="mb-3">
                         <label for="description" class="form-label">Descrição</label>
                         <textarea class="form-control @error('description') is-invalid @enderror"
-                                  id="description" name="description" rows="3">{{ old('description') }}</textarea>
+                            id="description" name="description" rows="3">{{ old('description') }}</textarea>
                         @error('description')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                        <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
@@ -67,10 +68,10 @@
                             <div class="mb-3">
                                 <label for="latitude" class="form-label">Latitude *</label>
                                 <input type="number" step="any"
-                                       class="form-control @error('latitude') is-invalid @enderror"
-                                       id="latitude" name="latitude" value="{{ old('latitude') }}" required>
+                                    class="form-control @error('latitude') is-invalid @enderror"
+                                    id="latitude" name="latitude" value="{{ old('latitude') }}" required>
                                 @error('latitude')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
@@ -78,26 +79,26 @@
                             <div class="mb-3">
                                 <label for="longitude" class="form-label">Longitude *</label>
                                 <input type="number" step="any"
-                                       class="form-control @error('longitude') is-invalid @enderror"
-                                       id="longitude" name="longitude" value="{{ old('longitude') }}" required>
+                                    class="form-control @error('longitude') is-invalid @enderror"
+                                    id="longitude" name="longitude" value="{{ old('longitude') }}" required>
                                 @error('longitude')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
                     </div>
 
-                   <div class="mb-3">
-    <label for="address" class="form-label">Endereço</label>
-    <input type="text" class="form-control @error('address') is-invalid @enderror"
-           id="address" name="address" value="{{ old('address') }}">
-    @error('address')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-    <button type="button" class="btn btn-secondary mt-2" id="btnSearchAddress">
-        <i class="fas fa-search me-1"></i>Pesquisar Endereço
-    </button>
-</div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label  mb-3">Endereço</label>
+                        <input type="text" class="form-control @error('address') is-invalid @enderror"
+                            id="address" name="address" value="{{ old('address') }}">
+                        @error('address')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <button type="button" class="btn btn-danger mt-3 w-100" id="btnSearchAddress">
+                            <i class="fas fa-search me-1"></i>Pesquisar Endereço
+                        </button>
+                    </div>
 
 
                     <div class="mb-3">
@@ -115,12 +116,12 @@
                             <option value="Outro" {{ old('category') == 'Outro' ? 'selected' : '' }}>Outro</option>
                         </select>
                         @error('category')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                        <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="d-grid">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-danger">
                             <i class="fas fa-save me-1"></i>Salvar Local
                         </button>
                     </div>
@@ -134,54 +135,54 @@
 @section('scripts')
 @section('scripts')
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    var map = L.map('map').setView([-23.5505, -46.6333], 10);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
+    document.addEventListener('DOMContentLoaded', function() {
+        var map = L.map('map').setView([-23.5505, -46.6333], 10);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
 
-    var marker = null;
+        var marker = null;
 
-    map.on('click', function(e) {
-        var lat = e.latlng.lat;
-        var lng = e.latlng.lng;
+        map.on('click', function(e) {
+            var lat = e.latlng.lat;
+            var lng = e.latlng.lng;
 
-        document.getElementById('latitude').value = lat.toFixed(8);
-        document.getElementById('longitude').value = lng.toFixed(8);
+            document.getElementById('latitude').value = lat.toFixed(8);
+            document.getElementById('longitude').value = lng.toFixed(8);
 
-        if (marker) map.removeLayer(marker);
-        marker = L.marker([lat, lng]).addTo(map);
-        marker.bindPopup(`
+            if (marker) map.removeLayer(marker);
+            marker = L.marker([lat, lng]).addTo(map);
+            marker.bindPopup(`
             <div class="text-center">
                 <strong>Coordenadas selecionadas:</strong><br>
                 Lat: ${lat.toFixed(8)}<br>
                 Lng: ${lng.toFixed(8)}
             </div>
         `).openPopup();
-    });
+        });
 
-    document.getElementById('btnSearchAddress').addEventListener('click', function() {
-        var address = document.getElementById('address').value;
-        if (!address) {
-            alert('Digite um endereço para pesquisar.');
-            return;
-        }
+        document.getElementById('btnSearchAddress').addEventListener('click', function() {
+            var address = document.getElementById('address').value;
+            if (!address) {
+                alert('Digite um endereço para pesquisar.');
+                return;
+            }
 
-        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data && data.length > 0) {
-                    var lat = parseFloat(data[0].lat);
-                    var lon = parseFloat(data[0].lon);
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.length > 0) {
+                        var lat = parseFloat(data[0].lat);
+                        var lon = parseFloat(data[0].lon);
 
-                    map.setView([lat, lon], 15);
+                        map.setView([lat, lon], 15);
 
-                    document.getElementById('latitude').value = lat.toFixed(8);
-                    document.getElementById('longitude').value = lon.toFixed(8);
+                        document.getElementById('latitude').value = lat.toFixed(8);
+                        document.getElementById('longitude').value = lon.toFixed(8);
 
-                    if (marker) map.removeLayer(marker);
-                    marker = L.marker([lat, lon]).addTo(map);
-                    marker.bindPopup(`
+                        if (marker) map.removeLayer(marker);
+                        marker = L.marker([lat, lon]).addTo(map);
+                        marker.bindPopup(`
                         <div class="text-center">
                             <strong>Endereço encontrado:</strong><br>
                             ${address}<br>
@@ -189,55 +190,16 @@ document.addEventListener('DOMContentLoaded', function() {
                             Lng: ${lon.toFixed(8)}
                         </div>
                     `).openPopup();
-                } else {
-                    alert('Endereço não encontrado.');
-                }
-            })
-            .catch(error => {
-                console.error('Erro ao buscar endereço:', error);
-                alert('Erro ao buscar endereço.');
-            });
+                    } else {
+                        alert('Endereço não encontrado.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar endereço:', error);
+                    alert('Erro ao buscar endereço.');
+                });
+        });
     });
-});
 </script>
 @endsection
 
-<!-- <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar o mapa
-    var map = L.map('map').setView([-23.5505, -46.6333], 10); // São Paulo como centro inicial
-
-    // Adicionar camada do OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-
-    var marker = null;
-
-    // Evento de clique no mapa
-    map.on('click', function(e) {
-        var lat = e.latlng.lat;
-        var lng = e.latlng.lng;
-
-        // Preencher os campos de latitude e longitude
-        document.getElementById('latitude').value = lat.toFixed(8);
-        document.getElementById('longitude').value = lng.toFixed(8);
-
-        // Remover marcador anterior se existir
-        if (marker) {
-            map.removeLayer(marker);
-        }
-
-        // Adicionar novo marcador
-        marker = L.marker([lat, lng]).addTo(map);
-        marker.bindPopup(`
-            <div class="text-center">
-                <strong>Coordenadas selecionadas:</strong><br>
-                Lat: ${lat.toFixed(8)}<br>
-                Lng: ${lng.toFixed(8)}
-            </div>
-        `).openPopup();
-    });
-});
-</script>
-@endsection -->

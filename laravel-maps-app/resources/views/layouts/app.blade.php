@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,21 +17,113 @@
             width: 100%;
             border-radius: 8px;
         }
+
         .location-card {
             transition: transform 0.2s;
         }
+
         .location-card:hover {
             transform: translateY(-2px);
+        }
+
+        body {
+            background-color: #121212;
+            color: #fff;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #dc3545  !important;
+        }
+
+        .navbar-brand,
+        .nav-link {
+            color: #fff !important;
+        }
+
+        .nav-link:hover {
+            color: #dc3545 !important;
+        }
+
+        /* Cards */
+        .card {
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+            color: #fff;
+        }
+
+        .card-header {
+            background-color: #000;
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        /* Botões */
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #b52a37;
+
+        }
+
+        .nav-link:hover{
+            color: #000;
+            background-color:#000 ;
+           
+        }
+        .btn-danger:hover {
+            background-color: #b52a37;
+            border-color: #b52a37;
+        }
+
+       
+        .btn-outline-secondary {
+            color: #fff;
+            border-color: #fff;
+        }
+
+        .btn-outline-secondary:hover {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .btn-warning {
+            background-color: #ff4d4d;
+            border-color: #ff4d4d;
+            color: #fff;
+        }
+
+        /* Lista de locais */
+        .list-group-item {
+            background-color: #1e1e1e;
+            color: #fff;
+            border: 1px solid #333;
+        }
+
+        .list-group-item:hover {
+            background-color: #2a2a2a;
+        }
+
+        /* Mapa */
+        #map {
+            height: 500px;
+            width: 100%;
+            border-radius: 8px;
+            border: 2px solid #dc3545;
+        }
+
+        .form-control{
+            border: 2px solid #dc3545;
         }
     </style>
     @yield('styles')
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
             <a class="navbar-brand" href="{{ route('locations.index') }}">
                 <i class="fas fa-map-marker-alt me-2"></i>
-                Laravel Maps App
+                Maps App
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -38,13 +131,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('locations.index') }}">
-                            <i class="fas fa-list me-1"></i>Locais
+                        <a class="nav-link " href="{{ route('locations.index') }}">
+                            <i class="fas fa-list  me-1"></i>Locais
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('locations.create') }}">
-                            <i class="fas fa-plus me-1"></i>Adicionar Local
+                        <a class="nav-link " href="{{ route('locations.create') }}">
+                            <i class="fas fa-plus me-1 btn-danger:houver"></i>Adicionar Local
                         </a>
                     </li>
                 </ul>
@@ -53,16 +146,16 @@
     </nav>
     <main class="container my-4">
         @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
         @endif
         @if(session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
         @endif
         @yield('content')
     </main>
@@ -72,4 +165,5 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     @yield('scripts')
 </body>
+
 </html>

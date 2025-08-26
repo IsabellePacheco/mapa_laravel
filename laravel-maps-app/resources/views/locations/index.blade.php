@@ -5,7 +5,7 @@
     <div class="col-12">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1><i class="fas fa-map-marker-alt me-2"></i>Locais Cadastrados</h1>
-            <a href="{{ route('locations.create') }}" class="btn btn-primary">
+            <a href="{{ route('locations.create') }}" class="btn btn-danger">
                 <i class="fas fa-plus me-1"></i>Adicionar Local
             </a>
         </div>
