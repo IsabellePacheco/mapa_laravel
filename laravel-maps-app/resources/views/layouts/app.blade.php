@@ -18,6 +18,9 @@
             border-radius: 8px;
         }
 
+        .invalid-feedback{
+            color: #fff;
+        }
         .location-card {
             transition: transform 0.2s;
         }

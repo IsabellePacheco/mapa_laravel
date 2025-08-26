@@ -6,7 +6,7 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1><i class="fas fa-map-marker-alt me-2"></i>{{ $location->name }}</h1>
             <div>
-                <a href="{{ route('locations.edit', $location->id) }}" class="btn btn-warning me-2">
+                <a href="{{ route('locations.edit', $location->id) }}" class="btn btn-outline-secondary me-2">
                     <i class="fas fa-edit me-1"></i>Editar
                 </a>
                 <a href="{{ route('locations.index') }}" class="btn btn-outline-secondary">
@@ -84,7 +84,7 @@
                 @endif
                 <hr>
                 <div class="d-grid gap-2">
-                    <a href="{{ route('locations.edit', $location->id) }}" class="btn btn-warning">
+                    <a href="{{ route('locations.edit', $location->id) }}" class="btn btn-danger">
                         <i class="fas fa-edit me-1"></i>Editar Local
                     </a>
                     <form action="{{ route('locations.destroy', $location->id) }}" method="POST">

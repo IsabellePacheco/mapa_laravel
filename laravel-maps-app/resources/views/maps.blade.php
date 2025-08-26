@@ -9,7 +9,7 @@
     <div class="mb-3">
         <input type="text" id="endereco" class="form-control" placeholder="Digite um endereço">
     </div>
-    <button class="btn btn-primary" onclick="pesquisarEndereco()">Pesquisar</button>
+    <button class="btn btn-danger" onclick="pesquisarEndereco()">Pesquisar</button>
 
     <div id="map" style="width: 100%; height: 500px; margin-top: 20px;"></div>
 </div>
