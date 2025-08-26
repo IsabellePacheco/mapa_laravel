@@ -1,10 +1,12 @@
 # MAPA LARAVEL 
 
 >Messe projeto foi prposto para desenvolver uma aplicação  utilizando o framework Laravel, com o objetivo de demonstrar como integrar sistemas web modernos a uma API de mapas.
-Com essa integração, é possível: Exibir localizações em mapas interativos; Pesquisar e marcar pontos de interesse (como empresas, escolas, hospitais, etc.).
+
+## Com essa integração, é possível: 
+- Exibir localizações em mapas interativos
+- Pesquisar e marcar pontos de interesse (como empresas, escolas, hospitais, etc.).
 
 #### A seguir esta alguns prints das telas que eu fiz. Mas se quiser ver detalhado tudo funcionando só baixar o video que deixei disponivel aqui.
-
 
 ## Adicionar novo lugar 
 <img width="1919" height="881" alt="image" src="https://github.com/user-attachments/assets/f60c2d69-6dfc-4890-9485-4577f0730122" />
